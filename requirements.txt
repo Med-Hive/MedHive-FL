@@ -1,0 +1,7 @@
+flwr
+scikit-learn
+numpy
+pandas
+mlflow
+pyngrok
+joblib
