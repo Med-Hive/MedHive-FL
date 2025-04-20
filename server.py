@@ -7,6 +7,7 @@ from typing import List, Tuple, Dict, Optional, Union
 from flwr.common import FitRes, Parameters
 
 import mlflow
+import pyngrok
 
 
 class CustomFedAvg(FedAvg):
