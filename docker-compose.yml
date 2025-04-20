@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  server:
+    build: .
+    container_name: flower_server
+    ports:
+      - "8080:8080"  # MLflow UI
+    volumes:
+      - ./data:/app/data  # Bind mount for local data access
+    environment:
+      - MLFLOW_TRACKING_URI=http://0.0.0.0:8080
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    command: >
+      bash -c "
+      mlflow server --host 0.0.0.0 --port 8080 &
+      sleep 5 &&
+      python3 -c 'from pyngrok import ngrok; tunnel = ngrok.connect(8080); print(\"🌐 MLflow Dashboard URL:\", tunnel.public_url)' &&
+      python3 server.py
+      "
